@@ -1,0 +1,14 @@
+version: "3.2"
+
+services:
+  rescueph_server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    image: rescueph/server
+    container_name: rescueph_server
+    labels:
+      rescueph: "true"
+    volumes:
+      - ./server:/usr/src/app
+      - /usr/src/app/node_modules

@@ -1,0 +1,24 @@
+# Start node container
+FROM node:10.17.0-alpine as builder
+
+# Install the build requirements
+RUN apk --no-cache add python make g++
+
+# Install dependencies
+COPY package*.json ./
+RUN npm install
+
+FROM node:10.17.0-alpine
+
+WORKDIR /usr/src/app
+COPY --from=builder node_modules node_modules
+
+RUN npm install -g nodemon
+
+# Copy server files
+COPY . .
+
+# Expose port 5000
+EXPOSE 5000
+
+CMD [ "nodemon", "/usr/src/app/server.js" ]
