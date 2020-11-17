@@ -1,0 +1,37 @@
+version: "3.2"
+
+services:
+  rescueph_server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    image: rescueph/server
+    container_name: rescueph_server
+    labels:
+      rescueph: "true"
+    networks:
+      - rescueph_network
+    volumes:
+      - ./server:/usr/src/app
+      - /usr/src/app/node_modules
+  rescueph_client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    image: rescueph/client
+    container_name: rescueph_client
+    labels:
+      rescueph: "true"
+    networks:
+      - rescueph_network
+    volumes:
+      - ./client:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 80:3000
+    links:
+      - rescueph_server
+
+networks:
+  rescueph_network:
+    driver: bridge

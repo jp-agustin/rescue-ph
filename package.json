@@ -1,0 +1,21 @@
+{
+  "name": "rescue-ph",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install:docker": "sudo ./docker_install.sh",
+    "dev": "sudo -E docker-compose -f docker-compose.dev.yml up --build",
+    "prod": "sudo -E docker-compose -f docker-compose.yml up --build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jp-agustin/rescue-ph.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jp-agustin/rescue-ph/issues"
+  },
+  "homepage": "https://github.com/jp-agustin/rescue-ph#readme"
+}

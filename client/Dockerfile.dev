@@ -1,0 +1,13 @@
+# Start node container
+FROM node:10.17.0-alpine
+
+WORKDIR /usr/src/app
+
+# Install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy client files
+COPY . .
+
+CMD ["npm", "start"]
