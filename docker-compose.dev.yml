@@ -13,7 +13,6 @@ services:
       - rescueph_network
     volumes:
       - ./server:/usr/src/app
-      - /usr/src/app/node_modules
   rescueph_client:
     build:
       context: ./client
@@ -26,7 +25,6 @@ services:
       - rescueph_network
     volumes:
       - ./client:/usr/src/app
-      - /usr/src/app/node_modules
     ports:
       - 80:3000
     links:
