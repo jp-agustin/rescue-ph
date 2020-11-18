@@ -1,0 +1,99 @@
+[
+  {
+    "contactPerson": "Lillie Cariño",
+    "contactNumber": "+639285551160",
+    "location": {
+      "lat": 14.5813,
+      "lon": 120.9762
+    },
+    "noOfPerson": 5,
+    "additionalInfo": "n/a"
+  },
+  {
+    "contactPerson": "Carim Dumlao",
+    "contactNumber": "+632835554376",
+    "location": {
+      "address": "South Fairway Homes Subd. Laguna Landayan"
+    },
+    "noOfPerson": 8,
+    "additionalInfo": "Nasa bubong lang buong araw naghihintay ng rescue"
+  },
+  {
+    "contactPerson": "Tuazon Dayag",
+    "contactNumber": "+639325555577",
+    "location": {
+      "lat": 15.010178,
+      "lon": 120.853531
+    },
+    "noOfPerson": 2,
+    "additionalInfo": "No battery left sa phone"
+  },
+  {
+    "contactPerson": "Alana Carol",
+    "contactNumber": "+639225557989",
+    "location": {
+      "address": "Cabunag St., Candelaria, Quezon, Philippines"
+    },
+    "noOfPerson": 6,
+    "additionalInfo": "n/a"
+  },
+  {
+    "contactPerson": "Calaguas Pérez",
+    "contactNumber": "+639075555923",
+    "location": {
+      "address": "Zambrano Building Quezon Avenue San Fernando La Union"
+    },
+    "noOfPerson": 7,
+    "additionalInfo": "4 na bata, 2 adult, 1 senior"
+  },
+  {
+    "contactPerson": "Rahman Velasco",
+    "contactNumber": "+639075555241",
+    "location": {
+      "lat": 15.524501,
+      "lon": 121.123097
+    },
+    "noOfPerson": 2,
+    "additionalInfo": "Need relief goods. Hindi pa kumakain since kahapon"
+  },
+  {
+    "contactPerson": "Thaddeus Chanco",
+    "contactNumber": "+632805554259",
+    "location": {
+      "lat": 15.706231,
+      "lon": 120.769667
+    },
+    "noOfPerson": 11,
+    "additionalInfo": "n/a"
+  },
+  {
+    "contactPerson": "Emesto Martin",
+    "contactNumber": "+632835553235",
+    "location": {
+      "lat": 14.387295,
+      "lon": 121.578362
+    },
+    "noOfPerson": 17,
+    "additionalInfo": "Need urgent rescue"
+  },
+  {
+    "contactPerson": "Rosario Muraoka",
+    "contactNumber": "+639105553565",
+    "location": {
+      "lat": 14.654048,
+      "lon": 121.293821
+    },
+    "noOfPerson": 3,
+    "additionalInfo": "May medical condition yung isang senior"
+  },
+  {
+    "contactPerson": "Tio García",
+    "contactNumber": "+639295557000",
+    "location": {
+      "lat": 14.233477,
+      "lon": 120.778652
+    },
+    "noOfPerson": 9,
+    "additionalInfo": "Stuck sa 2nd floor"
+  }
+]

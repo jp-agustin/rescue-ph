@@ -50,6 +50,9 @@
 
       const server = http.listen(port, () => {
         log.info(`Rescue PH server running on port ${port}`);
+
+        // Comment out to load dummy data
+        // require(path.join(__dirname, './utils/', 'loadDummy.js'))();
       });
 
       server.setTimeout(0);
