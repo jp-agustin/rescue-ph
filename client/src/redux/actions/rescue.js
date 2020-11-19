@@ -3,11 +3,11 @@ import axios from 'axios';
 import isEmpty from '../../utils/isEmpty';
 
 import {
-  GET_RESCUES,
+  SET_RESCUES,
 } from '../types';
 
 export const setRescues = (rescues) => ({
-  type: GET_RESCUES,
+  type: SET_RESCUES,
   rescues
 });
 

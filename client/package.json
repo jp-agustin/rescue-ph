@@ -18,12 +18,13 @@
     "react-scripts": "4.0.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "socket.io-client": "^3.0.3",
     "styled-components": "^5.2.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -45,5 +46,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://rescueph_server:5000"
+  "proxy": "http://rescueph_server:5000",
+  "secure": false
 }
