@@ -13,12 +13,28 @@ module.exports = {
   getRescues: (req, res, next) => {
     Rescue.find()
       .then((rescues) => {
-        res.status(200).send(rescues);
+        res.send(rescues);
       })
       .catch((err) => {
         log.error(err);
         res.send(err);
       })
+  },
+
+  // Create new rescue entry
+  addNewRescue: (req, res, next, io) => {
+    let rescue = req.body;
+    let newEntry = new Rescue(rescue);
+
+    newEntry.save()
+      .then((createdRescue) => {
+        res.send({ message: 'Rescue entry successfully added' });
+        io.emit('new-rescue', createdRescue);
+      })
+      .catch((err) => {
+        log.error(err);
+        res.send(err);
+      });
   },
 
 }

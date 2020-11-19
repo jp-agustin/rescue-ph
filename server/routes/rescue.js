@@ -10,4 +10,13 @@ module.exports = (router, io) => {
     .get(
       rescueCtrl.getRescues
     );
+
+  // POST
+  // Create new rescue entry
+  router.route('/rescues')
+    .post(
+      (req, res, next) => (
+        rescueCtrl.addNewRescue(req, res, next, io)
+      )
+    );
 }
