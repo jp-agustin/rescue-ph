@@ -25,6 +25,13 @@
   app.use(cors());
   app.use(helmet());
 
+  // Router setup
+  const routes = require(path.join(__dirname, './routes/'));
+  const router = express.Router();
+
+  routes(router);
+  app.use('/api', router);
+
   // Load models
   const models = require(path.join(__dirname, './models/'));
 
