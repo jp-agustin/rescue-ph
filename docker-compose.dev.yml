@@ -11,8 +11,15 @@ services:
       rescueph: "true"
     networks:
       - rescueph_network
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - ./server:/usr/src/app
+    links:
+      - rescueph_db
+    restart: on-failure
   rescueph_client:
     build:
       context: ./client
@@ -29,6 +36,23 @@ services:
       - 80:3000
     links:
       - rescueph_server
+    restart: on-failure
+  rescueph_db:
+    build: ./db
+    image: rescueph/db
+    container_name: rescueph_db
+    labels:
+      rescueph: "true"
+    networks:
+      - rescueph_network
+    expose:
+      - ${MONGO_PORT}
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - ./db/data:/data/db
+    restart: on-failure
 
 networks:
   rescueph_network:
