@@ -6,17 +6,17 @@ import {
   Accent,
 } from './Marker-styles';
 
-const CustomMarker = (props) => {
+const CustomMarker = ({ rescue }) => {
 
   return (
     <Marker
-      position={[props.rescue.location.lat, props.rescue.location.lon]}
+      position={[rescue.location.lat, rescue.location.lon]}
     >
       <CustomPopup>
-        <Accent>Contact Person:</Accent> {props.rescue.contactPerson} <br />
-        <Accent>Contact Number:</Accent> {props.rescue.contactNumber} <br />
-        <Accent>No. of Person:</Accent> {props.rescue.noOfPerson} <br />
-        <Accent>Additional Info:</Accent> {props.rescue.additionalInfo}
+        <Accent>Contact Person:</Accent> {rescue.contactPerson} <br />
+        <Accent>Contact Number:</Accent> {rescue.contactNumber} <br />
+        <Accent>No. of Person:</Accent> {rescue.noOfPerson} <br />
+        <Accent>Additional Info:</Accent> {rescue.additionalInfo}
       </CustomPopup>
     </Marker>
   );

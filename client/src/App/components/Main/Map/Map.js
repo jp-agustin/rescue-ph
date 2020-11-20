@@ -41,7 +41,11 @@ const Map = () => {
 
       { !isEmpty(rescues) &&
         rescues.map((rescue) => {
-          if (has(rescue.location, 'lat')) {
+          if (
+            has(rescue, 'location')
+            && !isEmpty(rescue.location.lat)
+            && !isEmpty(rescue.location.lon)
+          ) {
             return (
               <CustomMarker
                 key={rescue._id}
