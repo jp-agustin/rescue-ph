@@ -1,9 +1,10 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from "redux";
 
-import rescue from './rescue';
+import rescue from "./rescue";
 
-const reducers = () => combineReducers({
-  rescue,
-});
+const reducers = () =>
+  combineReducers({
+    rescue
+  });
 
 export default reducers;

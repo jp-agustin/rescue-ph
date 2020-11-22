@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Popup } from 'react-leaflet';
+import { Popup } from "react-leaflet";
 
 export const CustomPopup = styled(Popup)`
   .leaflet-popup-content-wrapper {

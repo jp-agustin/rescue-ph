@@ -1,1 +1,1 @@
-export { default } from './LazyLoader';
+export { default } from "./LazyLoader";
