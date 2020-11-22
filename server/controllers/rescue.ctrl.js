@@ -23,7 +23,24 @@ module.exports = {
 
   // Create new rescue entry
   addNewRescue: (req, res, next, io) => {
-    let rescue = req.body;
+    const rescue = req.body;
+    const {
+      contactPerson,
+      contactNumber,
+      location,
+      noOfPerson,
+    } = rescue;
+
+    if (
+      isEmpty(contactPerson)
+      || isEmpty(contactNumber)
+      || isEmpty(location)
+      || isEmpty(noOfPerson)
+      || (isEmpty(location.address) && (isEmpty(location.lat) || isEmpty(location.lon)))
+    ) {
+      return res.status(400).send({ error: 'Missing required fields' });
+    }
+
     let newEntry = new Rescue(rescue);
 
     newEntry.save()
