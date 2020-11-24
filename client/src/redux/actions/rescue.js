@@ -2,11 +2,16 @@ import axios from "axios";
 
 import isEmpty from "../../utils/isEmpty";
 
-import { GET_RESCUES } from "../types";
+import { SET_RESCUES, SET_SELECTED_RESCUE } from "../types";
 
 export const setRescues = rescues => ({
-  type: GET_RESCUES,
+  type: SET_RESCUES,
   rescues
+});
+
+export const setSelectedRescue = rescue => ({
+  type: SET_SELECTED_RESCUE,
+  rescue
 });
 
 export const getRescues = () => dispatch => {

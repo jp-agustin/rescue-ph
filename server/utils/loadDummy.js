@@ -9,7 +9,7 @@ const log = bunyan.createLogger({ name: 'load-dummy' });
 const { Rescue, Update } = require(path.join(__dirname, '../models/'));
 
 const addUpdates = (updates, rescue, ind) => {
-  const breakpoints = [[0, 1], [], [2, 3], [4, 4], [5, 6], [7, 7], [], [8, 8], [9, 9], [10, 11]];
+  const breakpoints = [[0, 1], [], [2, 3], [4, 4], [5, 6], [7, 7], [], [8, 8], [9, 9], [10, 12]];
 
   if (!isEmpty(breakpoints[ind])) {
     for (let i = breakpoints[ind][0]; i <= breakpoints[ind][1]; i += 1) {
