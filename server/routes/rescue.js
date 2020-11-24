@@ -6,4 +6,8 @@ module.exports = (router) => {
   // GET
   // Get all rescues
   router.route('/rescues').get(rescueCtrl.getRescues);
+
+  // GET
+  // Get rescue updates
+  router.route('/rescues/:id/updates').get(rescueCtrl.getUpdates);
 };
