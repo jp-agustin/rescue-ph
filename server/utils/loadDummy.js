@@ -1,5 +1,5 @@
-const fs     = require('fs');
-const path   = require('path');
+const fs = require('fs');
+const path = require('path');
 const bunyan = require('bunyan');
 
 const log = bunyan.createLogger({ name: 'load-dummy' });
@@ -11,9 +11,10 @@ const loadDummy = () => {
   const rescues = JSON.parse(rawData);
 
   rescues.forEach((rescue) => {
-    let newEntry = new Rescue(rescue);
+    const newEntry = new Rescue(rescue);
 
-    newEntry.save()
+    newEntry
+      .save()
       .then(() => {
         log.info('Entry successfully added');
       })
@@ -21,6 +22,6 @@ const loadDummy = () => {
         log.error(err);
       });
   });
-}
+};
 
 module.exports = loadDummy;

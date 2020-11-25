@@ -1,1 +1,1 @@
-export const GET_RESCUES = 'GET_RESCUES';
+export const GET_RESCUES = "GET_RESCUES";

@@ -1,21 +1,19 @@
-import {
-  GET_RESCUES,
-} from '../types';
+import { GET_RESCUES } from "../types";
 
 const initialState = {
-  rescues: [],
-}
+  rescues: []
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_RESCUES:
       return {
         ...initialState,
-        rescues: action.rescues,
-      }
+        rescues: action.rescues
+      };
     default:
       return state;
   }
-}
+};
 
 export default reducer;

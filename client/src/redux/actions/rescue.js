@@ -1,21 +1,20 @@
-import axios from 'axios';
+import axios from "axios";
 
-import isEmpty from '../../utils/isEmpty';
+import isEmpty from "../../utils/isEmpty";
 
-import {
-  GET_RESCUES,
-} from '../types';
+import { GET_RESCUES } from "../types";
 
-export const setRescues = (rescues) => ({
+export const setRescues = rescues => ({
   type: GET_RESCUES,
   rescues
 });
 
 export const getRescues = () => dispatch => {
-  let apiUrl = `/api/rescues`;
+  const apiUrl = "/api/rescues";
 
-  axios.get(apiUrl)
-    .then((res) => {
+  axios
+    .get(apiUrl)
+    .then(res => {
       const rescues = res.data;
 
       if (!isEmpty(rescues)) {
@@ -25,4 +24,4 @@ export const getRescues = () => dispatch => {
     .catch(err => {
       console.log(err);
     });
-}
+};
