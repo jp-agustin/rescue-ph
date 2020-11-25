@@ -4,9 +4,10 @@ export const UpdatesContainer = styled.div`
   display: flex;
   flex-direction: column-reverse;
   align-items: flex-start;
-  flex: 0.8;
+  flex: 0.725;
   width: 100%;
   overflow-y: auto;
+  padding: 0 4%;
 
   & div:last-child {
     margin-top: auto;

@@ -3,7 +3,13 @@ import { useSelector } from "react-redux";
 
 // import isEmpty from "../../../../../utils/isEmpty";
 
-import { FormContainer, TextArea, DateTimeInput } from "./Form-styles";
+import {
+  FormContainer,
+  TextArea,
+  Row,
+  DateTimeInput,
+  Button
+} from "./Form-styles";
 
 const Form = () => {
   const { selectedRescue } = useSelector(state => state.rescue);
@@ -51,11 +57,16 @@ const Form = () => {
         value={textAreaValue}
         onChange={e => setTextAreaValue(e.target.value)}
       />
-      <DateTimeInput
-        type="datetime-local"
-        value={inputValue}
-        onChange={e => setInputValue(e.target.value)}
-      />
+
+      <Row>
+        <DateTimeInput
+          type="datetime-local"
+          value={inputValue}
+          onChange={e => setInputValue(e.target.value)}
+        />
+
+        <Button>Add Update</Button>
+      </Row>
     </FormContainer>
   );
 };
