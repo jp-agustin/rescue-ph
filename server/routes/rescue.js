@@ -10,4 +10,8 @@ module.exports = (router) => {
   // GET
   // Get rescue updates
   router.route('/rescues/:id/updates').get(rescueCtrl.getUpdates);
+
+  // POST
+  // Add new rescue update
+  router.route('/rescues/:id/updates').post(rescueCtrl.addNewUpdate);
 };
