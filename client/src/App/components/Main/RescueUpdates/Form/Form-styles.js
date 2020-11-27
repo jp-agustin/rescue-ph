@@ -1,4 +1,13 @@
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
+
+const shake = keyframes`
+  0% { transform: translate(10px); }
+  20% { transform: translate(-10px); }
+  40% { transform: translate(5px); }
+  60% { transform: translate(-5px); }
+  80% { transform: translate(2px); }
+  100% { origin-transform: translate(0px); }
+`;
 
 export const FormContainer = styled.div`
   display: flex;
@@ -17,12 +26,27 @@ export const TextArea = styled.textarea`
   padding: 4%;
   font-family; inherit;
   font-size: 0.95rem;
+  resize: none;
+
+  ${props =>
+    props.error &&
+    css`
+      border: 4px solid ${props.theme.DANGER};
+      animation: ${shake} 0.4s 1 linear;
+    `}
 `;
 
 export const DateTimeInput = styled.input`
   font-family; inherit;
   font-size: 0.95rem;
   padding: 1.25%;
+
+  ${props =>
+    props.error &&
+    css`
+      border: 4px solid ${props.theme.DANGER};
+      animation: ${shake} 0.4s 1 linear;
+    `}
 `;
 
 export const Row = styled.div`

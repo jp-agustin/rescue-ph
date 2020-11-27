@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-// import isEmpty from "../../../../../utils/isEmpty";
+import { addUpdate } from "../../../../../redux/actions/update";
+
+import isEmpty from "../../../../../utils/isEmpty";
 
 import {
   FormContainer,
@@ -12,10 +14,13 @@ import {
 } from "./Form-styles";
 
 const Form = () => {
+  const dispatch = useDispatch();
   const { selectedRescue } = useSelector(state => state.rescue);
 
-  const [textAreaValue, setTextAreaValue] = useState("");
-  const [inputValue, setInputValue] = useState("");
+  const [update, setUpdate] = useState("");
+  const [timestamp, setTimestamp] = useState("");
+  const [isValidTimestamp, setIsValidTimestamp] = useState(true);
+  const [isValidUpdate, setIsValidUpdate] = useState(true);
 
   const setCurrentDateTime = () => {
     const dt = new Date();
@@ -44,28 +49,61 @@ const Form = () => {
     }
 
     const today = `${year}-${month}-${day}T${hours}:${minutes}`;
-    setInputValue(today);
+    setTimestamp(today);
+  };
+
+  const reset = () => {
+    setCurrentDateTime();
+    setUpdate("");
+    setIsValidUpdate(true);
+    setIsValidTimestamp(true);
+  };
+
+  const submitForm = () => {
+    setIsValidTimestamp(true);
+    setIsValidUpdate(true);
+
+    if (!isEmpty(update) && !isEmpty(timestamp)) {
+      dispatch(
+        addUpdate(selectedRescue, {
+          timestamp: new Date(timestamp),
+          update
+        })
+      );
+
+      reset();
+    } else {
+      if (isEmpty(update)) {
+        setIsValidUpdate(false);
+      }
+
+      if (isEmpty(timestamp)) {
+        setIsValidTimestamp(false);
+      }
+    }
   };
 
   useEffect(() => {
-    setCurrentDateTime();
+    reset();
   }, [selectedRescue]);
 
   return (
     <FormContainer>
       <TextArea
-        value={textAreaValue}
-        onChange={e => setTextAreaValue(e.target.value)}
+        value={update}
+        onChange={e => setUpdate(e.target.value)}
+        error={!isValidUpdate}
       />
 
       <Row>
         <DateTimeInput
           type="datetime-local"
-          value={inputValue}
-          onChange={e => setInputValue(e.target.value)}
+          value={timestamp}
+          onChange={e => setTimestamp(e.target.value)}
+          error={!isValidTimestamp}
         />
 
-        <Button>Add Update</Button>
+        <Button onClick={submitForm}>Add Update</Button>
       </Row>
     </FormContainer>
   );
