@@ -10,7 +10,12 @@ import {
   Timestamp
 } from "./UpdatesList-styles";
 
-const options = { year: "numeric", month: "short", day: "numeric" };
+const options = {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+  timeZone: "Asia/Manila"
+};
 
 const UpdatesList = () => {
   const { updates } = useSelector(state => state.update);
@@ -25,7 +30,9 @@ const UpdatesList = () => {
               {`${new Date(update.timestamp).toLocaleDateString(
                 undefined,
                 options
-              )} ${new Date(update.timestamp).toLocaleTimeString("en-US")}`}
+              )} ${new Date(update.timestamp).toLocaleTimeString("en-US", {
+                timeZone: "Asia/Manila"
+              })}`}
             </Timestamp>
           </UpdateContainer>
         ))}

@@ -25,6 +25,7 @@ module.exports = {
     const getUpdates = (rescue) => {
       if (!isEmpty(rescue)) {
         Update.find({ rescueId: rescue._id })
+          .sort({ timestamp: 'asc' })
           .then((updates) => res.status(200).send(updates))
           .catch((err) => {
             log.error(err);
@@ -69,7 +70,7 @@ module.exports = {
         const newEntry = new Update({
           rescueId: rescue._id,
           update,
-          timestamp: new Date(timestamp),
+          timestamp,
         });
 
         newEntry
