@@ -93,6 +93,7 @@ const Form = () => {
         value={update}
         onChange={e => setUpdate(e.target.value)}
         error={!isValidUpdate}
+        placeholder="Please enter an update..."
       />
 
       <Row>
