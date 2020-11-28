@@ -29,7 +29,8 @@
     "express": "^4.17.1",
     "has": "^1.0.3",
     "helmet": "^4.2.0",
-    "mongoose": "^5.10.15"
+    "mongoose": "^5.10.15",
+    "socket.io": "^3.0.3"
   },
   "devDependencies": {
     "eslint": "^7.14.0",

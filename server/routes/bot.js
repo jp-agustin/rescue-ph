@@ -6,6 +6,7 @@ module.exports = (router) => {
   // GET
   // Get messenger bot webhook
   router.route('/bot/webhook').get(botCtrl.getWebhook);
+
   // POST
   // Post messenger bot Webhook
   router.route('/bot/webhook').post(botCtrl.postWebhook);

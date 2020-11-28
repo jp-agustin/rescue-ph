@@ -1,15 +1,15 @@
-import { SET_RESCUES } from "../types";
+import { SET_SOCKET } from "../types";
 
 const initialState = {
-  rescues: []
+  socket: ""
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_RESCUES:
+    case SET_SOCKET:
       return {
         ...initialState,
-        rescues: action.rescues
+        socket: action.socket
       };
     default:
       return state;

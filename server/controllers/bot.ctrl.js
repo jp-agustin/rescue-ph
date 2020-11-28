@@ -14,7 +14,6 @@ module.exports = {
     const { VERIFY_TOKEN } = process.env;
 
     // Parse params from the webhook verification request
-    // TODO: Try if destructuring would work
     const mode = req.query['hub.mode'];
     const token = req.query['hub.verify_token'];
     const challenge = req.query['hub.challenge'];
