@@ -23,7 +23,7 @@ module.exports = {
       // Check the mode and token sent are correct
       if (mode === 'subscribe' && token === VERIFY_TOKEN) {
         // Respond with 200 OK and challenge token from the request
-        log('WEBHOOK_VERIFIED');
+        log.info('WEBHOOK_VERIFIED');
         res.send(challenge);
       } else {
         // Responds with '403 Forbidden' if verify tokens do not match
@@ -43,7 +43,7 @@ module.exports = {
         // Get the webhook event. entry.messaging is an array, but
         // will only ever contain one event, so we get index 0
         const webhookEvent = e.messaging[0];
-        log(webhookEvent);
+        log.info(webhookEvent);
 
         // Discard uninteresting events
         if ('read' in webhookEvent) {
@@ -56,7 +56,7 @@ module.exports = {
 
         // Get the sender PSID
         const senderPsid = webhookEvent.sender.id;
-        log(`Sender ID: ${senderPsid}`);
+        log.info(`Sender ID: ${senderPsid}`);
 
         // TODO: Improve this by adding a user service that fetches publicly available user info.
         if (!(senderPsid in users)) {
