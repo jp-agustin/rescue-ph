@@ -1,4 +1,5 @@
 const bunyan = require('bunyan');
+const has = require('has');
 // const path = require('path');
 
 // const Receive = require(path.join(__dirname, '../services/receive'));
@@ -29,6 +30,8 @@ module.exports = {
         // Responds with '403 Forbidden' if verify tokens do not match
         res.sendStatus(403);
       }
+    } else {
+      res.sendStatus(400).send('Missing mode or token.');
     }
   },
   // Post Webhook
@@ -46,11 +49,7 @@ module.exports = {
         log.info(webhookEvent);
 
         // Discard uninteresting events
-        if ('read' in webhookEvent) {
-          return;
-        }
-
-        if ('delivery' in webhookEvent) {
+        if ('read' in webhookEvent || 'delivery' in webhookEvent) {
           return;
         }
 
@@ -59,7 +58,7 @@ module.exports = {
         log.info(`Sender ID: ${senderPsid}`);
 
         // TODO: Improve this by adding a user service that fetches publicly available user info.
-        if (!(senderPsid in users)) {
+        if (!has(users, senderPsid)) {
           users[senderPsid] = {
             step: 'START',
             psid: senderPsid,
