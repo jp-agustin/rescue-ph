@@ -49,7 +49,7 @@ module.exports = {
         log.info(webhookEvent);
 
         // Discard uninteresting events
-        if ('read' in webhookEvent || 'delivery' in webhookEvent) {
+        if (has(webhookEvent, 'read') || has(webhookEvent, 'delivery')) {
           return;
         }
 
