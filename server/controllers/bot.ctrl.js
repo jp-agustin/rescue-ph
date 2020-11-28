@@ -1,8 +1,8 @@
 const bunyan = require('bunyan');
 const has = require('has');
-// const path = require('path');
+const path = require('path');
 
-// const Receive = require(path.join(__dirname, '../services/receive'));
+const Receive = require(path.join(__dirname, '../services/receive'));
 
 const log = bunyan.createLogger({ name: 'messengerBot' });
 
@@ -30,7 +30,7 @@ module.exports = {
         res.sendStatus(403);
       }
     } else {
-      res.sendStatus(400).send('Missing mode or token.');
+      res.sendStatus(400).send({ error: 'Missing mode or token.' });
     }
   },
   // Post Webhook
@@ -64,8 +64,8 @@ module.exports = {
           };
         }
 
-        // let receiveMessage = new Receive(users[senderPsid], webhookEvent);
-        // return receiveMessage.handleMessage();
+        const receiveMessage = new Receive(users[senderPsid], webhookEvent);
+        receiveMessage.handleMessage();
       });
 
       // Return a '200 OK' response to all events
