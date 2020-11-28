@@ -30,6 +30,7 @@
     "has": "^1.0.3",
     "helmet": "^4.2.0",
     "mongoose": "^5.10.15",
+    "request": "^2.88.2",
     "socket.io": "^3.0.3"
   },
   "devDependencies": {
