@@ -15,9 +15,9 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const socket = io({ path: '/socket.io' });
+    const socket = io({ path: "/socket.io" });
     dispatch(setSocket(socket));
-  }, [])
+  }, []);
 
   return (
     <ThemeProvider theme={colors}>
@@ -33,6 +33,6 @@ const App = () => {
       </Suspense>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

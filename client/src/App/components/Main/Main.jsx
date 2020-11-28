@@ -12,23 +12,22 @@ import Map from "./Map";
 const Main = () => {
   const dispatch = useDispatch();
 
-  const { socket } = useSelector((state) => state.socket);
-  const { rescues } = useSelector((state) => state.rescue);
+  const { socket } = useSelector(state => state.socket);
+  const { rescues } = useSelector(state => state.rescue);
 
   useEffect(() => {
     if (!isEmpty(socket)) {
-      socket.on("new-rescue", (newRescue) => {
+      socket.on("new-rescue", newRescue => {
         dispatch(setRescues([...rescues, newRescue]));
       });
     }
-  }, [socket, rescues])
+  }, [socket, rescues]);
 
   return (
     <MainContainer>
       <Map />
     </MainContainer>
   );
-}
-
+};
 
 export default Main;
