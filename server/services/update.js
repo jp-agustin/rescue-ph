@@ -6,6 +6,11 @@ const path = require('path');
 
 const Response = require(path.join(__dirname, './response'));
 
+function isValidUpdateNumber(updateNumber) {
+  const regExpUpdateNumer = /^#[0-9]*$/;
+  return regExpUpdateNumer.test(updateNumber);
+}
+
 module.exports = class Update {
   constructor(user, webhookEvent) {
     this.user = user;
@@ -17,7 +22,7 @@ module.exports = class Update {
     let response;
     const message = this.webhookEvent.message.text;
 
-    if (!this.isValidUpdateNumber(message)) {
+    if (!isValidUpdateNumber(message)) {
       // TODO: Add function for checking if update reference number is in db
       // If update is not in db
       response = Response.genText('The reference number you have entered does not exist.');
@@ -25,10 +30,5 @@ module.exports = class Update {
       response = Response.genText('You have entered an invalid update reference number.');
     }
     return response;
-  }
-
-  static isValidUpdateNumber(updateNumber) {
-    const regExpUpdateNumer = /^#[0-9]*$/;
-    return regExpUpdateNumer.test(updateNumber);
   }
 };

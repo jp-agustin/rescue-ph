@@ -6,6 +6,16 @@ const path = require('path');
 
 const Response = require(path.join(__dirname, './response'));
 
+function isValidContactNumber(contactNumber) {
+  const regExpContactNumber = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
+  return regExpContactNumber.test(contactNumber);
+}
+
+function isValidName(name) {
+  const regExpName = /^[A-Za-z\s]+$/;
+  return regExpName.test(name);
+}
+
 module.exports = class Rescue {
   constructor(user, webhookEvent) {
     this.user = user;
@@ -25,7 +35,7 @@ module.exports = class Rescue {
         break;
 
       case 'CONTACT_NAME_STEP':
-        if (this.isValidName(message) && message.length > 2) {
+        if (isValidName(message) && message.length > 2) {
           this.user.data = { contactPerson: message };
           this.user.step = 'CONTACT_NUMBER_STEP';
           response = Response.genText(
@@ -37,7 +47,7 @@ module.exports = class Rescue {
         break;
 
       case 'CONTACT_NUMBER_STEP':
-        if (this.isValidContactNumber(message)) {
+        if (isValidContactNumber(message)) {
           this.user.data.contactNumber = message;
           this.user.step = 'LOCATION_STEP';
           response = Response.genText(
@@ -135,16 +145,6 @@ module.exports = class Rescue {
       response = Response.genText('Sorry, please refer to the previous step.');
     }
     return response;
-  }
-
-  static isValidContactNumber(contactNumber) {
-    const regExpContactNumber = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
-    return regExpContactNumber.test(contactNumber);
-  }
-
-  static isValidName(name) {
-    const regExpName = /^[A-Za-z\s]+$/;
-    return regExpName.test(name);
   }
 
   static setToPreviousStep() {
