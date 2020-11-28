@@ -17,6 +17,8 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - ./server:/usr/src/app
+    ports:
+      - 5000:5000
     links:
       - rescueph_db
     restart: on-failure

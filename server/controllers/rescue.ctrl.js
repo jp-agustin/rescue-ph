@@ -1,5 +1,5 @@
 const bunyan = require('bunyan');
-const path   = require('path');
+const path = require('path');
 
 const isEmpty = require(path.join(__dirname, '../utils/isEmpty'));
 
@@ -8,27 +8,21 @@ const { Rescue } = require(path.join(__dirname, '../models/'));
 const log = bunyan.createLogger({ name: 'rescue' });
 
 module.exports = {
-
   // Get all rescues
-  getRescues: (req, res, next) => {
+  getRescues: (req, res) => {
     Rescue.find()
-      .then((rescues) => {
-        res.send(rescues);
-      })
+      .then((rescues) => res.status(200).send(rescues))
       .catch((err) => {
         log.error(err);
         res.send(err);
-      })
+      });
   },
 
   // Create new rescue entry
   addNewRescue: (req, res, next, io) => {
     const rescue = req.body;
     const {
-      contactPerson,
-      contactNumber,
-      location,
-      noOfPerson,
+      contactPerson, contactNumber, location, noOfPerson,
     } = rescue;
 
     if (
@@ -41,9 +35,10 @@ module.exports = {
       return res.status(400).send({ error: 'Missing required fields' });
     }
 
-    let newEntry = new Rescue(rescue);
+    const newEntry = new Rescue(rescue);
 
-    newEntry.save()
+    newEntry
+      .save()
       .then((createdRescue) => {
         res.send({ message: 'Rescue entry successfully added' });
         io.emit('new-rescue', createdRescue);
@@ -52,6 +47,7 @@ module.exports = {
         log.error(err);
         res.send(err);
       });
-  },
 
-}
+    return true;
+  },
+};

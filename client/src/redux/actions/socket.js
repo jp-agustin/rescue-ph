@@ -1,8 +1,6 @@
-import {
-  SET_SOCKET,
-} from '../types';
+import { SET_SOCKET } from "../types";
 
-export const setSocket = (socket) => ({
+export const setSocket = socket => ({
   type: SET_SOCKET,
-  socket,
+  socket
 });

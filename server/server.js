@@ -1,19 +1,17 @@
 (function () {
-  'use strict';
-
-  const express     = require('express');
-  const app         = express();
-  const cors        = require('cors');
+  const express = require('express');
+  const app = express();
+  const cors = require('cors');
   const compression = require('compression');
-  const helmet      = require('helmet');
-  const bunyan      = require('bunyan');
-  const http        = require('http').createServer(app);
-  const mongoose    = require('mongoose');
-  const path        = require('path');
-  const io          = require('socket.io')(http);
+  const helmet = require('helmet');
+  const bunyan = require('bunyan');
+  const http = require('http').createServer(app);
+  const mongoose = require('mongoose');
+  const path = require('path');
+  const io = require('socket.io')(http);
 
-  const log   = bunyan.createLogger({ name: 'server' });
-  const port  = 5000;
+  const log = bunyan.createLogger({ name: 'server' });
+  const port = 5000;
 
   // Use gzip compression
   app.use(compression());
@@ -34,14 +32,14 @@
   app.use('/api', router);
 
   // Load models
-  const models = require(path.join(__dirname, './models/'));
+  require(path.join(__dirname, './models/'));
 
   // MongoDB config
   const db = process.env.MONGO_URI;
   const user = process.env.MONGO_INITDB_ROOT_USERNAME;
   const pw = process.env.MONGO_INITDB_ROOT_PASSWORD;
 
-  let dbOptions = {
+  const dbOptions = {
     auth: {
       user,
       password: pw,
@@ -49,10 +47,11 @@
     useNewUrlParser: true,
     useFindAndModify: false,
     useUnifiedTopology: true,
-  }
+  };
 
   // Connect to DB
-  mongoose.connect(db, dbOptions)
+  mongoose
+    .connect(db, dbOptions)
     .then(() => {
       log.info('Database connection successful...');
 
@@ -65,9 +64,11 @@
 
       server.setTimeout(0);
     })
-    .catch(err => log.error(err));
+    .catch((err) => log.error(err));
 
   // Bind connection to error event (to get notification of connection errors)
   const conn = mongoose.connection;
-  conn.on('error', console.error.bind(console, 'MongoDB connection error:'));
-})();
+  conn.on('error', (err) => {
+    log.error(err);
+  });
+}());

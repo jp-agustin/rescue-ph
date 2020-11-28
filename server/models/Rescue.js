@@ -6,14 +6,14 @@ const RescueSchema = new mongoose.Schema({
   location: {
     lat: Number,
     lon: Number,
-    address: String
+    address: String,
   },
   noOfPerson: Number,
   additionalInfo: String,
   isRescued: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
 module.exports = mongoose.model('Rescue', RescueSchema);
