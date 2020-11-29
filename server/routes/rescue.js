@@ -9,5 +9,13 @@ module.exports = (router, io) => {
 
   // POST
   // Create new rescue entry
-  router.route('/rescues').post((req, res, next) => rescueCtrl.addNewRescue(req, res, next, io));
+  router.route('/rescues').post((req, res) => rescueCtrl.addNewRescue(req, res, io));
+
+  // GET
+  // Get rescue updates
+  router.route('/rescues/:id/updates').get(rescueCtrl.getUpdates);
+
+  // POST
+  // Add new rescue update
+  router.route('/rescues/:id/updates').post(rescueCtrl.addNewUpdate);
 };
