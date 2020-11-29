@@ -41,8 +41,7 @@ export const Button = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-left: 3%;
-  width: 40%;
+  width: 100%;
   border-radius: 2px;
   background-color: ${props => props.theme.PRIMARY};
   transition: 0.3s background-color;
