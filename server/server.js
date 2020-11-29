@@ -8,6 +8,7 @@
   const http = require('http').createServer(app);
   const mongoose = require('mongoose');
   const path = require('path');
+  const io = require('socket.io')(http);
 
   const log = bunyan.createLogger({ name: 'server' });
   const port = 5000;
@@ -27,7 +28,7 @@
   const routes = require(path.join(__dirname, './routes/'));
   const router = express.Router();
 
-  routes(router);
+  routes(router, io);
   app.use('/api', router);
 
   // Load models
