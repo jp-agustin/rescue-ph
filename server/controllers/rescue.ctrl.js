@@ -48,14 +48,15 @@ module.exports = {
   // Add new rescue update
   addNewUpdate: (req, res) => {
     const { id } = req.params;
-    const { timestamp, update } = req.body;
+    const { update } = req.body;
 
-    if (isEmpty(timestamp) || isEmpty(update)) {
+    if (isEmpty(update)) {
       return res.status(400).send({ error: 'Missing required fields' });
     }
 
     const returnUpdates = () => {
       Update.find({ rescueId: id })
+        .sort({ timestamp: 'asc' })
         .then((updates) => res.status(200).send(updates))
         .catch((err) => {
           log.error(err);
@@ -70,7 +71,7 @@ module.exports = {
         const newEntry = new Update({
           rescueId: rescue._id,
           update,
-          timestamp,
+          timestamp: new Date(),
         });
 
         newEntry
