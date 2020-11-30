@@ -8,12 +8,13 @@ import isEmpty from "../../../utils/isEmpty";
 import { MainContainer } from "./Main-styles";
 
 import Map from "./Map";
+import RescueUpdates from "./RescueUpdates";
 
 const Main = () => {
   const dispatch = useDispatch();
 
   const { socket } = useSelector(state => state.socket);
-  const { rescues } = useSelector(state => state.rescue);
+  const { rescues, selectedRescue } = useSelector(state => state.rescue);
 
   useEffect(() => {
     if (!isEmpty(socket)) {
@@ -26,6 +27,8 @@ const Main = () => {
   return (
     <MainContainer>
       <Map />
+
+      {!isEmpty(selectedRescue) && <RescueUpdates />}
     </MainContainer>
   );
 };
