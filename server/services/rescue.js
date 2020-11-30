@@ -59,7 +59,7 @@ module.exports = class Rescue {
         break;
 
       case 'LOCATION_STEP':
-        if (message.length < 9) {
+        if (message.length > 9) {
           this.user.data.location = { address: message };
           this.user.step = 'NUMBER_OF_PERSONS_STEP';
           response = Response.genText('Okay. please enter the number of persons who need rescuing');
