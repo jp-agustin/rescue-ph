@@ -51,6 +51,23 @@ module.exports = {
     return true;
   },
 
+  // Update rescue entry
+  updateRescue: (req, res, io) => {
+    const { id } = req.params;
+
+    // check if req.body keys is empty
+
+    Rescue.findByIdAndUpdate(id, req.body, { new: true })
+      .then((updatedRescue) => {
+        res.status(200).send({ message: 'Rescue entry successully updated' });
+        io.emit('update-rescue', updatedRescue);
+      })
+      .catch((err) => {
+        log.error(err);
+        res.send(err);
+      });
+  },
+
   // Get rescue updates
   getUpdates: (req, res) => {
     const { id } = req.params;

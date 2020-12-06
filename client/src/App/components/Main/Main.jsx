@@ -21,6 +21,16 @@ const Main = () => {
       socket.on("new-rescue", newRescue => {
         dispatch(setRescues([...rescues, newRescue]));
       });
+
+      socket.on("update-rescue", updatedRescue => {
+        dispatch(
+          setRescues([
+            ...rescues.map(rescue =>
+              rescue._id === updatedRescue._id ? updatedRescue : rescue
+            )
+          ])
+        );
+      });
     }
   }, [socket, rescues]);
 
