@@ -54,8 +54,16 @@ module.exports = {
   // Update rescue entry
   updateRescue: (req, res, io) => {
     const { id } = req.params;
+    const { body } = req;
 
-    // check if req.body keys is empty
+    // no-restricted-syntax is ignored in this case since although array iterations are favored
+    // more than loops, there are still cases where loops are more preferred (i.e. when you want to break or continue)
+    /* eslint-disable-next-line no-restricted-syntax */
+    for (const key of Object.keys(body)) {
+      if (isEmpty(body[key])) {
+        return res.status(400).send({ error: 'Parameters cannot be empty' });
+      }
+    }
 
     Rescue.findByIdAndUpdate(id, req.body, { new: true })
       .then((updatedRescue) => {
@@ -66,6 +74,8 @@ module.exports = {
         log.error(err);
         res.send(err);
       });
+
+    return true;
   },
 
   // Get rescue updates
