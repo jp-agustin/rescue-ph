@@ -6,15 +6,15 @@ const path = require('path');
 
 const Response = require(path.join(__dirname, './response'));
 
-function isValidContactNumber(contactNumber) {
+const isValidContactNumber = (contactNumber) => {
   const regExpContactNumber = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
   return regExpContactNumber.test(contactNumber);
-}
+};
 
-function isValidName(name) {
+const isValidName = (name) => {
   const regExpName = /^[A-Za-z\s]+$/;
   return regExpName.test(name);
-}
+};
 
 module.exports = class Rescue {
   constructor(user, webhookEvent) {
@@ -59,7 +59,7 @@ module.exports = class Rescue {
         break;
 
       case 'LOCATION_STEP':
-        if (message.length > 9) {
+        if (message.length > 7) {
           this.user.data.location = { address: message };
           this.user.step = 'NUMBER_OF_PERSONS_STEP';
           response = Response.genText('Okay. please enter the number of persons who need rescuing');

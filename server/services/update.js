@@ -1,8 +1,7 @@
 const bunyan = require('bunyan');
-
-const log = bunyan.createLogger({ name: 'receive-service' });
-
 const path = require('path');
+
+const log = bunyan.createLogger({ name: 'update-service' });
 
 const Response = require(path.join(__dirname, './response'));
 

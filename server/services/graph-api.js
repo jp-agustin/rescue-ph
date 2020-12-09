@@ -1,5 +1,4 @@
 const axios = require('axios');
-
 const bunyan = require('bunyan');
 
 const log = bunyan.createLogger({ name: 'graph-api-service' });

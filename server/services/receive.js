@@ -1,15 +1,11 @@
 const bunyan = require('bunyan');
+const path = require('path');
 
 const log = bunyan.createLogger({ name: 'receive-service' });
 
-const path = require('path');
-
 const Response = require(path.join(__dirname, './response'));
-
 const GraphAPi = require(path.join(__dirname, './graph-api'));
-
 const Rescue = require(path.join(__dirname, './rescue'));
-
 const Update = require(path.join(__dirname, './update'));
 
 const has = require('has');
@@ -97,8 +93,7 @@ module.exports = class Receive {
   }
 
   handlePostback() {
-    const { postback } = this.webhookEvent;
-    const { payload } = postback;
+    const { payload } = this.webhookEvent.postback;
     return this.handlePayload(payload.toUpperCase());
   }
 
