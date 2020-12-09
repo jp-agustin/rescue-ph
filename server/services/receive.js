@@ -9,6 +9,7 @@ const Rescue = require(path.join(__dirname, './rescue'));
 const Update = require(path.join(__dirname, './update'));
 
 const has = require('has');
+const axios = require('axios');
 
 module.exports = class Receive {
   constructor(user, webhookEvent) {
@@ -131,6 +132,8 @@ module.exports = class Receive {
         response = Response.genText(
           'Please wait while we process your information. You will receive a reply with your update reference number after.',
         );
+        this.addRescue();
+
         break;
 
       default:
@@ -157,5 +160,13 @@ module.exports = class Receive {
     };
 
     setTimeout(() => GraphAPi.callSendAPI(requestBody), responseDelay);
+  }
+
+  addRescue() {
+    const { data } = this.user;
+    axios
+      .post('/api/rescues', data)
+      .then((response) => log.info(response))
+      .catch((err) => log.error(err));
   }
 };
