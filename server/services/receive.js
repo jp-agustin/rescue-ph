@@ -1,4 +1,5 @@
 const bunyan = require('bunyan');
+const has = require('has');
 const path = require('path');
 
 const log = bunyan.createLogger({ name: 'receive-service' });
@@ -7,8 +8,6 @@ const Response = require(path.join(__dirname, './response'));
 const GraphAPi = require(path.join(__dirname, './graph-api'));
 const Rescue = require(path.join(__dirname, './rescue'));
 const Update = require(path.join(__dirname, './update'));
-
-const has = require('has');
 
 module.exports = class Receive {
   constructor(user, webhookEvent) {
@@ -155,6 +154,7 @@ module.exports = class Receive {
       },
       message: response,
     };
+    log.info('Calling sendmessage', requestBody);
 
     setTimeout(() => GraphAPi.callSendAPI(requestBody), responseDelay);
   }

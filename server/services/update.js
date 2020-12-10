@@ -5,10 +5,10 @@ const log = bunyan.createLogger({ name: 'update-service' });
 
 const Response = require(path.join(__dirname, './response'));
 
-function isValidUpdateNumber(updateNumber) {
+const isValidUpdateNumber = (updateNumber) => {
   const regExpUpdateNumer = /^#[0-9]*$/;
   return regExpUpdateNumer.test(updateNumber);
-}
+};
 
 module.exports = class Update {
   constructor(user, webhookEvent) {
