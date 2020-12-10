@@ -6,10 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint './**/*.js' --fix",
-    "format": "prettier-eslint $PWD/'./**/*.{js,json}' --write --ignore \"./node_modules/**\""
+    "format": "prettier-eslint $PWD/'./**/*.{js,json}' --write --ignore \"./node_modules/**\"",
+    "pre-commit": "lint-staged"
   },
   "lint-staged": {
-    "**/*.js": [
+    "./**/*.{js,json}": [
       "eslint --fix",
       "prettier-eslint --write",
       "git add"
