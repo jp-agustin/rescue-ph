@@ -1,7 +1,7 @@
 const bunyan = require('bunyan');
 const path = require('path');
 
-const isEmpty = require(path.join(__dirname, '../utils/isEmpty'));
+const { isEmpty, isValidRescue } = require(path.join(__dirname, '../utils/helpers'));
 
 const { Rescue, Update } = require(path.join(__dirname, '../models/'));
 
@@ -21,17 +21,8 @@ module.exports = {
   // Create new rescue entry
   addNewRescue: (req, res, io) => {
     const rescue = req.body;
-    const {
-      contactPerson, contactNumber, location, noOfPerson,
-    } = rescue;
 
-    if (
-      isEmpty(contactPerson)
-      || isEmpty(contactNumber)
-      || isEmpty(location)
-      || isEmpty(noOfPerson)
-      || (isEmpty(location.address) && (isEmpty(location.lat) || isEmpty(location.lon)))
-    ) {
+    if (!isValidRescue(rescue)) {
       return res.status(400).send({ error: 'Missing required fields' });
     }
 

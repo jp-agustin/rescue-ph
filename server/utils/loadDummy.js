@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const bunyan = require('bunyan');
 
-const isEmpty = require(path.join(__dirname, './isEmpty'));
+const { isEmpty } = require(path.join(__dirname, './helpers'));
 
 const log = bunyan.createLogger({ name: 'load-dummy' });
 
