@@ -30,10 +30,11 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint 'src/**/*.{js,jsx}' --fix",
-    "format": "prettier-eslint --write $PWD/'src/**/*.{js,jsx,css,scss}'"
+    "format": "prettier-eslint --write $PWD/'src/**/*.{js,jsx,css,scss}'",
+    "pre-commit": "lint-staged"
   },
   "lint-staged": {
-    "**/*.js": [
+    "src/**/*.{js,jsx,css,scss}": [
       "eslint --fix",
       "prettier-eslint --write",
       "git add"
