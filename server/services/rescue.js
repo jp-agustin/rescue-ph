@@ -1,7 +1,6 @@
 const bunyan = require('bunyan');
 
 const log = bunyan.createLogger({ name: 'receive-service' });
-
 const path = require('path');
 
 const Response = require(path.join(__dirname, './response'));
@@ -59,13 +58,9 @@ module.exports = class Rescue {
         break;
 
       case 'LOCATION_STEP':
-        if (message.length > 7) {
-          this.user.data.location = { address: message };
-          this.user.step = 'NUMBER_OF_PERSONS_STEP';
-          response = Response.genText('Okay. please enter the number of persons who need rescuing');
-        } else {
-          response = Response.genText('Please enter a more specific address.');
-        }
+        this.user.data.location = { address: message };
+        this.user.step = 'NUMBER_OF_PERSONS_STEP';
+        response = Response.genText('Okay. please enter the number of persons who need rescuing');
         break;
 
       case 'NUMBER_OF_PERSONS_STEP':

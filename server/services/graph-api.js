@@ -6,14 +6,15 @@ const log = bunyan.createLogger({ name: 'graph-api-service' });
 module.exports = class GraphAPi {
   static callSendAPI(requestBody) {
     axios
-      .post('https://graph.facebook.com/v3.2/me/messages', requestBody, {
+      .post('https://graph.facebook.com/v9.0/me/messages', requestBody, {
         params: { access_token: process.env.PAGE_ACCESS_TOKEN },
+      })
+      .then((resp) => {
+        log.info('message sent', resp);
       })
       .catch((error) => {
         if (error) {
           log.error('Unable to send message:', error);
-        } else {
-          log.info('message sent!');
         }
       });
   }
