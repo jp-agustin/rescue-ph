@@ -10,7 +10,7 @@ module.exports = class GraphAPi {
         params: { access_token: process.env.PAGE_ACCESS_TOKEN },
       })
       .then((resp) => {
-        log.info('message sent', resp);
+        log.info('message sent, status: ', resp.status);
       })
       .catch((error) => {
         if (error) {
