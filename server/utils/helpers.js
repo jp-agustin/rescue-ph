@@ -3,10 +3,9 @@ const isEmpty = (value) => value === undefined
   || (typeof value === 'object' && Object.keys(value).length === 0)
   || (typeof value === 'string' && value.trim().length === 0);
 
-const isValidRescue = (rescue) => {
-  const {
-    contactNumber, contactPerson, location, noOfPerson,
-  } = rescue;
+const isValidRescue = ({
+  contactNumber, contactPerson, location, noOfPerson,
+}) => {
   if (
     isEmpty(contactPerson)
     || isEmpty(contactNumber)
