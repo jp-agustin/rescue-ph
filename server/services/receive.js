@@ -4,7 +4,7 @@ const path = require('path');
 
 const log = bunyan.createLogger({ name: 'receive-service' });
 
-const { Rescue: RescueModel } = require(path.join(__dirname, '../models/'));
+const { RescueModel } = require(path.join(__dirname, '../models/'));
 const GraphAPi = require(path.join(__dirname, './graph-api'));
 const Rescue = require(path.join(__dirname, './rescue'));
 const Response = require(path.join(__dirname, './response'));
