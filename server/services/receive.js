@@ -9,8 +9,7 @@ const GraphAPi = require(path.join(__dirname, './graph-api'));
 const Rescue = require(path.join(__dirname, './rescue'));
 const Response = require(path.join(__dirname, './response'));
 const Update = require(path.join(__dirname, './update'));
-const { isValidRescue } = require('../utils/helpers');
-const { genText } = require('./response');
+const { isValidRescue } = require(path.join(__dirname, '../utils/helpers'));
 
 module.exports = class Receive {
   constructor(user, webhookEvent) {
@@ -164,17 +163,17 @@ module.exports = class Receive {
   }
 
   addRescue() {
-    const { data: rescue } = this.user;
+    const { data } = this.user;
     let response = Response.genStandardErrorMessage;
     log.info(this.user);
-    if (isValidRescue(rescue)) {
-      const newEntry = new RescueModel(rescue);
+    if (isValidRescue(data)) {
+      const newEntry = new RescueModel(data);
 
       newEntry
         .save()
         .then((createdRescue) => {
           log.info('Rescue entry successfully added: ', createdRescue);
-          response = genText(
+          response = Response.genText(
             'Your rescue has been saved! Your update number is 222. To see updates on your rescue enter # + your update number in this chat.Have a good day!',
           );
           this.sendMessage(response);
@@ -184,7 +183,7 @@ module.exports = class Receive {
           this.sendMessage(response);
         });
     } else {
-      response = genText(
+      response = Response.genText(
         'There are missing or invalid fields in your response, please start over.',
       );
       this.sendMessage(response);
