@@ -4,10 +4,12 @@ const path = require('path');
 
 const log = bunyan.createLogger({ name: 'receive-service' });
 
-const Response = require(path.join(__dirname, './response'));
+const { RescueModel } = require(path.join(__dirname, '../models/'));
 const GraphAPi = require(path.join(__dirname, './graph-api'));
 const Rescue = require(path.join(__dirname, './rescue'));
+const Response = require(path.join(__dirname, './response'));
 const Update = require(path.join(__dirname, './update'));
+const { isValidRescue } = require(path.join(__dirname, '../utils/helpers'));
 
 module.exports = class Receive {
   constructor(user, webhookEvent) {
@@ -130,6 +132,8 @@ module.exports = class Receive {
         response = Response.genText(
           'Please wait while we process your information. You will receive a reply with your update reference number after.',
         );
+        this.addRescue();
+
         break;
 
       default:
@@ -156,5 +160,33 @@ module.exports = class Receive {
     };
 
     setTimeout(() => GraphAPi.callSendAPI(requestBody), responseDelay);
+  }
+
+  addRescue() {
+    const { data } = this.user;
+    let response = Response.genStandardErrorMessage;
+    log.info(this.user);
+    if (isValidRescue(data)) {
+      const newEntry = new RescueModel(data);
+
+      newEntry
+        .save()
+        .then((createdRescue) => {
+          log.info('Rescue entry successfully added: ', createdRescue);
+          response = Response.genText(
+            'Your rescue has been saved! Your update number is 222. To see updates on your rescue enter # + your update number in this chat.Have a good day!',
+          );
+          this.sendMessage(response);
+        })
+        .catch((err) => {
+          log.error(err);
+          this.sendMessage(response);
+        });
+    } else {
+      response = Response.genText(
+        'There are missing or invalid fields in your response, please start over.',
+      );
+      this.sendMessage(response);
+    }
   }
 };

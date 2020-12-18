@@ -1,16 +1,16 @@
 const bunyan = require('bunyan');
 const path = require('path');
 
-const isEmpty = require(path.join(__dirname, '../utils/isEmpty'));
+const { isEmpty, isValidRescue } = require(path.join(__dirname, '../utils/helpers'));
 
-const { Rescue, Update } = require(path.join(__dirname, '../models/'));
+const { RescueModel, UpdateModel } = require(path.join(__dirname, '../models/'));
 
 const log = bunyan.createLogger({ name: 'rescue' });
 
 module.exports = {
   // Get all rescues
   getRescues: (req, res) => {
-    Rescue.find()
+    RescueModel.find()
       .then((rescues) => res.status(200).send(rescues))
       .catch((err) => {
         log.error(err);
@@ -21,21 +21,12 @@ module.exports = {
   // Create new rescue entry
   addNewRescue: (req, res, io) => {
     const rescue = req.body;
-    const {
-      contactPerson, contactNumber, location, noOfPerson,
-    } = rescue;
 
-    if (
-      isEmpty(contactPerson)
-      || isEmpty(contactNumber)
-      || isEmpty(location)
-      || isEmpty(noOfPerson)
-      || (isEmpty(location.address) && (isEmpty(location.lat) || isEmpty(location.lon)))
-    ) {
+    if (!isValidRescue(rescue)) {
       return res.status(400).send({ error: 'Missing required fields' });
     }
 
-    const newEntry = new Rescue(rescue);
+    const newEntry = new RescueModel(rescue);
 
     newEntry
       .save()
@@ -57,7 +48,7 @@ module.exports = {
 
     const getUpdates = (rescue) => {
       if (!isEmpty(rescue)) {
-        Update.find({ rescueId: rescue._id })
+        UpdateModel.find({ rescueId: rescue._id })
           .sort({ timestamp: 'asc' })
           .then((updates) => res.status(200).send(updates))
           .catch((err) => {
@@ -70,7 +61,7 @@ module.exports = {
       return res.status(404).send({ error: 'Rescue not found' });
     };
 
-    Rescue.findById(id)
+    RescueModel.findById(id)
       .then(getUpdates)
       .catch((err) => {
         log.error(err);
@@ -88,7 +79,7 @@ module.exports = {
     }
 
     const returnUpdates = () => {
-      Update.find({ rescueId: id })
+      UpdateModel.find({ rescueId: id })
         .sort({ timestamp: 'asc' })
         .then((updates) => res.status(200).send(updates))
         .catch((err) => {
@@ -101,7 +92,7 @@ module.exports = {
 
     const addUpdate = (rescue) => {
       if (!isEmpty(rescue)) {
-        const newEntry = new Update({
+        const newEntry = new UpdateModel({
           rescueId: rescue._id,
           update,
           timestamp: new Date(),
@@ -120,7 +111,7 @@ module.exports = {
       return res.status(404).send({ error: 'Rescue not found' });
     };
 
-    Rescue.findById(id)
+    RescueModel.findById(id)
       .then(addUpdate)
       .catch((err) => {
         log.error(err);
